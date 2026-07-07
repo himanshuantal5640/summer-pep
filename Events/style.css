@@ -1,0 +1,24 @@
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+#child{
+  background-color: yellow;
+
+}
+#parent{
+  background-color: blue;
+}
+#grandparent{
+    width:200px;
+    background-color: red;
+}
+.box{
+    border: 1px solid black;
+    /* width: 100px; */
+    padding: 40px 20px;
+}

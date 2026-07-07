@@ -1,0 +1,63 @@
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body{
+    min-height: 100vh;
+    padding: 40px;
+}
+h1{
+    text-align: center;
+    color: black;
+    margin-bottom: 40px;
+    font-size: 3rem;
+}
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 1px solid red;
+    border-radius: 20px; */
+    gap: 25px;
+}
+.card{
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid red;
+    color: black;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+.card ::before{
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    top: -50px;
+    right: -50px;
+    opacity: 0.4;
+
+}
+
+.card ::hover{
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+
+}
+.card h2{
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+}
+.card p{
+    margin: 10px 0;
+    color: black;
+}
