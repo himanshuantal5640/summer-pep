@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Student.css";
 
 const Student = () => {
@@ -11,7 +11,13 @@ const Student = () => {
     role: "student",
   });
 
-  const [submittedData, setSubmittedData] = useState([]);
+  const [submittedData, setSubmittedData] = useState(()=>{
+    const savedData = localStorage.getItem("students");
+    return savedData ? JSON.parse(savedData):[];
+  });
+  useEffect(()=>{
+    localStorage.setItem("students",JSON.stringify(submittedData));
+  },[submittedData]);
 
   const handleChange = (e) => {
     setStudent({
