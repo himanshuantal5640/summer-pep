@@ -1,0 +1,32 @@
+| `useMemo`                       | `React.memo`                              |
+| ------------------------------- | ----------------------------------------- |
+| Memoizes a **value**            | Memoizes a **component**                  |
+| Hook                            | Higher Order Component (HOC)              |
+| Prevents expensive calculations | Prevents unnecessary component re-renders |
+| Used inside a component         | Used when exporting a component           |
+
+React.Memo ==> it is a higher order component which is used to optimize the performance of functional components by memoizing the rendered output of the component and preventing unnecessary re-renders when the props of the component have not changed. It is similar to React.PureComponent for class components.
+
+It take another function as value and return a new component that is memoized. It will only re-render if the props of the component have changed. It is useful when you have a component that receives a lot of props and you want to avoid unnecessary re-renders when the props have not changed. It is also useful when you have a component that is expensive to render and you want to avoid unnecessary re-renders when the props have not changed.
+
+
+useMemo ==> use to memoize large calclation 
+
+useMemo is a React Hook used to memoize (cache) the result of an expensive calculation so that it is not recomputed on every render.
+
+useMemo is a React Hook that memoizes the result of a computation and recomputes it only when its dependencies change, improving performance by avoiding unnecessary calculations.
+
+React.memo is a Higher Order Component (HOC) that memoizes a functional component and prevents unnecessary re-renders when its props have not changed.
+
+useCallback is a React Hook that memoizes (caches) a function and returns the same function reference between renders unless its dependencies change.
+
+useCallback is a React Hook that memoizes a function and returns the same function reference between renders unless its dependencies change. It is mainly used with React.memo to prevent unnecessary re-renders of child components when functions are passed as props.
+
+React.memo → Memoize a Component
+useMemo → Memoize a Value
+useCallback → Memoize a Function
+
+
+useContext is a React Hook used to share data between components without passing props manually through every level (called prop drilling).
+
+Prop Drilling is the process of passing data from a parent component to a deeply nested child component through multiple intermediate components, even when those intermediate components don't need the data.
