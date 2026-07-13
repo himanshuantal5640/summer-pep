@@ -17,3 +17,44 @@
   gap: 25px;
   justify-items: center;
 }
+
+.dashboard {
+  min-height: 100vh;
+  padding: 30px;
+}
+
+body.dark .dashboard {
+  background: #1e1e1e;
+  color: white;
+}
+
+body.dark .course-card {
+  background: #2a2a2a;
+  color: white;
+}
+
+body.dark .dashboard-title {
+  color: white;
+}
+
+body.dark .course-card {
+  background-color: #242424;
+  color: white;
+}
+
+body.dark .instructor,
+body.dark .course-details {
+  color: #d1d5db;
+}
+
+body.dark .course-content h3 {
+  color: white;
+}
+
+.course-card {
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+}
