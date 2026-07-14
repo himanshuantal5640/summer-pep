@@ -18,12 +18,12 @@ const CourseCard = ({ course }) => {
         </p>
 
         <div className="course-details">
-          <span>{course.duration}</span>
-          <span>{course.level}</span>
+          <span>Duration: {course.duration}</span>
+          <span>Level: {course.level}</span>
         </div>
 
         <div className="course-footer">
-          <h4>{course.price}</h4>
+          <h4>Price: {course.price}</h4>
           <button>Enroll Now</button>
         </div>
       </div>
