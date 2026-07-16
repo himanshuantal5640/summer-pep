@@ -17,29 +17,34 @@ const Login = ({ setIsLoggedIn }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (!user) {
-      alert("Please Signup First");
-      return;
-    }
+      const data = await response.json();
 
-    if (
-      formData.email === user.email &&
-      formData.password === user.password
-    ) {
-      localStorage.setItem("isLoggedIn", "true");
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("isLoggedIn", "true");
 
-      setIsLoggedIn(true);
-
-      alert("Login Successful");
-
-      navigate("/");
-    } else {
-      alert("Invalid Email or Password");
+        setIsLoggedIn(true);
+        alert("Login Successful");
+        navigate("/");
+      } else {
+        alert(data.message || "Invalid Email or Password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
