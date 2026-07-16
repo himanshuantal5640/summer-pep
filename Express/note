@@ -1,0 +1,10 @@
+1.  middlware ==> A middleware is a function that executes between receiving a request and sending a response.
+
+2. Type of middleware
+        1. Application-Level Middleware ==> Applied to the entire application or specific routes.
+        2. Router-Level Middleware ==> Applied to a specific router.
+        3. Built-in Middleware ==> Provided by Express itself.
+        4. Error-Handling Middleware ==> Special middleware with 4 parameters.
+
+        5.  5. Third-Party Middleware ==> Installed using npm.
+        

@@ -1,6 +1,8 @@
 const { json } = require('body-parser');
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
+app.use(morgan());
 app.use(json());
 app.get('/',(req,res)=>{
     res.send('Home page');
@@ -39,25 +41,6 @@ app.get('/student/:name/course/:course',(req,res)=>{
         message: "Student not found"
     });
 })
-
-// Add new student
-app.post('/student', (req, res) => {
-    console.log(req.body);
-    const { id, name, age, course } = req.body;
-
-    students.push({
-        id,
-        name,
-        age,
-        course
-    });
-
-    res.json({
-        success: true,
-        message: "Student added successfully",
-        data: students
-    });
-});
 // Get all students
 app.get('/students', (req, res) => {
     res.json({
@@ -66,5 +49,89 @@ app.get('/students', (req, res) => {
         data: students
     });
 });
+// add using post 
+app.post('/st', (req, res) => {
+    const { id, name, age, course } = req.body;
 
-app.listen(3000);
+    const student = { id, name, age, course };
+    students.push(student);
+
+    res.status(201).json({
+        success: true,
+        message: "Student created",
+        data: student
+    });
+});
+
+// PUT replace using patch
+app.put('/st/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    const index = students.findIndex(s => s.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({
+            success: false,
+            message: "Student not found"
+        });
+    }
+
+    students[index] = {
+        id,
+        ...req.body
+    };
+
+    res.json({
+        success: true,
+        message: "Student updated completely",
+        data: students[index]
+    });
+});
+
+// PATCH used to update
+app.patch('/st/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    const student = students.find(s => s.id === id);
+
+    if (!student) {
+        return res.status(404).json({
+            success: false,
+            message: "Student not found"
+        });
+    }
+
+    Object.assign(student, req.body);
+
+    res.json({
+        success: true,
+        message: "Student updated partially",
+        data: student
+    });
+});
+
+// DELETE 
+app.delete('/st/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    const index = students.findIndex(s => s.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({
+            success: false,
+            message: "Student not found"
+        });
+    }
+
+    const deletedStudent = students.splice(index, 1);
+
+    res.json({
+        success: true,
+        message: "Student deleted successfully",
+        data: deletedStudent[0]
+    });
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
