@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// Method to compare candidate password with stored hashed password
+
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

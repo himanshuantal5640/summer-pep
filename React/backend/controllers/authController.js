@@ -2,36 +2,32 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-// Generate JWT Token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/signup
-// @access  Public
 const signupUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
   try {
-    // 1. Validation
+    // Validation
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ message: "Please enter all fields" });
     }
 
-    // 2. Check if user already exists
+    // Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists with this email" });
     }
 
-    // 3. Hash the password
+    // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 4. Create new user
+    // Create new user
     const user = await User.create({
       firstName,
       lastName,
@@ -56,23 +52,19 @@ const signupUser = async (req, res) => {
     res.status(500).json({ message: error.message || "Server Error" });
   }
 };
-
-// @desc    Authenticate user & get token
-// @route   POST /api/auth/login
-// @access  Public
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // 1. Validation
+    // Validation
     if (!email || !password) {
       return res.status(400).json({ message: "Please enter email and password" });
     }
 
-    // 2. Find user by email
+    //  Find user by email
     const user = await User.findOne({ email });
 
-    // 3. Check user and password
+    //  Check user and password
     if (user && (await user.matchPassword(password))) {
       res.json({
         token: generateToken(user._id),
