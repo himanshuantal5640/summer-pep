@@ -3,13 +3,17 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const courseRoutes = require("./routes/courseRoutes");
 
+// Load environment variables
 dotenv.config();
 
+// Connect to Database
 connectDB();
 
 const app = express();
 
+// Middleware
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
@@ -18,7 +22,9 @@ app.use(
 );
 app.use(express.json());
 
+// Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/courses", courseRoutes);
 
 app.get("/", (req, res) => {
   res.send("Authentication API is running...");
