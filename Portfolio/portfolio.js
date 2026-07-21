@@ -1,10 +1,7 @@
-/**
- * Portfolio Interactive Functions
- * Himanshu Antal - Portfolio
- */
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Elements
+
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
   const navbar = document.getElementById('navbar');
@@ -16,9 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('toast');
   const toastMessage = document.getElementById('toast-message');
 
-  /* ==========================================
-     1. Theme Switcher (Dark / Light Mode)
-     ========================================== */
+  
   function applyTheme(theme) {
     document.body.classList.remove('dark-theme', 'light-theme');
     document.body.classList.add(theme);
@@ -33,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Load saved theme or default to dark-theme
+
   const initialTheme = localStorage.getItem('theme') || 'dark-theme';
   applyTheme(initialTheme);
 
@@ -46,9 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ==========================================
-     2. Sticky Header & Back to Top
-     ========================================== */
+  
   window.addEventListener('scroll', () => {
     // Sticky Header
     if (window.scrollY > 40) {
@@ -74,9 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ==========================================
-     3. Mobile Drawer Menu Toggle
-     ========================================== */
+
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
@@ -88,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close menu when clicking a link
+
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
@@ -98,9 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ==========================================
-     4. Active Navigation Link Highlighting
-     ========================================== */
+
   const sections = document.querySelectorAll('section[id]');
 
   function highlightNavOnScroll() {
@@ -124,9 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', highlightNavOnScroll);
 
-  /* ==========================================
-     5. Scroll Reveal IntersectionObserver
-     ========================================== */
+
   const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -143,9 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealElements.forEach(el => revealObserver.observe(el));
 
-  /* ==========================================
-     6. Interactive Contact Form Submission
-     ========================================== */
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
