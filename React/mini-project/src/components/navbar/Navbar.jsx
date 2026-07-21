@@ -10,6 +10,8 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
     navigate("/login");
   };
@@ -21,6 +23,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       <div className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
+        {isLoggedIn && <Link to="/my-courses">My Courses</Link>}
 
         <button className="theme-btn" onClick={toggleTheme}>
           <div

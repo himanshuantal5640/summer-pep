@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import About from "./pages/about/About";
+import MyCourses from "./pages/mycourses/MyCourses";
 import Footer from "./components/footer/Footer";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
+        <Route path="/my-courses" element={<MyCourses />} />
 
         <Route
           path="/login"

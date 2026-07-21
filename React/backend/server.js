@@ -13,10 +13,10 @@ connectDB();
 
 const app = express();
 
-// Middleware
+// Middleware - Allow any dynamic origin (5173, 5174, etc.) during local development
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: true,
     credentials: true,
   })
 );
@@ -27,8 +27,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Authentication API is running...");
+  res.send("Authentication & Course API is running...");
 });
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
