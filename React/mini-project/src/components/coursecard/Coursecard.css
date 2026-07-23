@@ -43,6 +43,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.course-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .course-footer h4 {
@@ -61,4 +69,12 @@
 
 .course-footer button:hover {
   background: #5563d6;
+}
+
+.course-footer .delete-btn {
+  background: #ef4444;
+}
+
+.course-footer .delete-btn:hover {
+  background: #dc2626;
 }

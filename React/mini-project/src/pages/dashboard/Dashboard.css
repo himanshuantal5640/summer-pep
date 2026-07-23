@@ -6,9 +6,59 @@
 
 .dashboard-title {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   color: #333;
   font-size: 2.5rem;
+}
+
+.add-course-form {
+  max-width: 900px;
+  margin: 0 auto 24px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.add-course-form h2 {
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-row input,
+.form-row select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.add-course-form button {
+  padding: 10px 16px;
+  border: none;
+  background: #667eea;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.add-course-form button:hover {
+  background: #5563d6;
+}
+
+.action-message {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2563eb;
+  font-weight: 600;
 }
 
 .courses-grid {
@@ -18,14 +68,26 @@
   justify-items: center;
 }
 
-.dashboard {
-  min-height: 100vh;
-  padding: 30px;
-}
-
 body.dark .dashboard {
   background: #1e1e1e;
   color: white;
+}
+
+body.dark .add-course-form {
+  background: #242424;
+  color: white;
+}
+
+body.dark .dashboard-title,
+body.dark .add-course-form h2 {
+  color: white;
+}
+
+body.dark .form-row input,
+body.dark .form-row select {
+  background: #2a2a2a;
+  color: white;
+  border-color: #4b5563;
 }
 
 body.dark .course-card {
@@ -34,11 +96,6 @@ body.dark .course-card {
 }
 
 body.dark .dashboard-title {
-  color: white;
-}
-
-body.dark .course-card {
-  background-color: #242424;
   color: white;
 }
 

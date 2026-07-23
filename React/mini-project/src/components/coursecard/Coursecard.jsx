@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Coursecard.css";
 
-const CourseCard = ({ course, isEnrolled: initialIsEnrolled = false }) => {
+const CourseCard = ({ course, isEnrolled: initialIsEnrolled = false, canDelete = false, onDelete = null }) => {
   const [enrolled, setEnrolled] = useState(initialIsEnrolled);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -44,6 +44,13 @@ const CourseCard = ({ course, isEnrolled: initialIsEnrolled = false }) => {
     }
   };
 
+  const handleDelete = () => {
+    const courseId = course._id || course.id;
+    if (onDelete) {
+      onDelete(courseId);
+    }
+  };
+
   return (
     <div className="course-card">
       <img
@@ -66,15 +73,22 @@ const CourseCard = ({ course, isEnrolled: initialIsEnrolled = false }) => {
 
         <div className="course-footer">
           <h4>Price: ₹{course.price}</h4>
-          {enrolled ? (
-            <button className="enrolled-btn" disabled style={{ backgroundColor: "#10b981", color: "white", cursor: "default" }}>
-              Enrolled ✓
-            </button>
-          ) : (
-            <button onClick={handleEnroll} disabled={loading}>
-              {loading ? "Enrolling..." : "Enroll Now"}
-            </button>
-          )}
+          <div className="course-actions">
+            {canDelete && (
+              <button className="delete-btn" onClick={handleDelete}>
+                Delete
+              </button>
+            )}
+            {enrolled ? (
+              <button className="enrolled-btn" disabled style={{ backgroundColor: "#10b981", color: "white", cursor: "default" }}>
+                Enrolled ✓
+              </button>
+            ) : (
+              <button onClick={handleEnroll} disabled={loading}>
+                {loading ? "Enrolling..." : "Enroll Now"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

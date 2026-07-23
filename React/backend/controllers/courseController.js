@@ -6,13 +6,11 @@ const initialCourses = require("../data/courses");
 // @route   GET /api/courses
 // @access  Public
 const getCourses = async (req, res) => {
-  // Try to read from the database, but fall back to the in-memory seed data
   try {
     let courses = [];
     try {
       courses = await Course.find({}).sort({ id: 1 });
 
-      // If database is empty, seed it with initial courses
       if (courses.length === 0) {
         console.log("Seeding courses database with default courses...");
         await Course.insertMany(initialCourses);
@@ -23,13 +21,70 @@ const getCourses = async (req, res) => {
         "Database not available, returning fallback initial courses.",
         dbErr.message,
       );
-      // Provide fallback to the static initial courses so the frontend still works
       return res.json(initialCourses);
     }
 
     res.json(courses);
   } catch (error) {
     console.error("Unexpected error in getCourses:", error);
+    res.status(500).json({ message: error.message || "Server Error" });
+  }
+};
+
+// @desc    Create a new course
+// @route   POST /api/courses
+// @access  Private
+const createCourse = async (req, res) => {
+  const { title, instructor, price, duration, level, image } = req.body;
+
+  if (!title || !instructor || !price || !duration || !level) {
+    return res.status(400).json({ message: "Please provide all required course fields" });
+  }
+
+  try {
+    const lastCourse = await Course.findOne({}).sort({ id: -1 });
+    const nextId = (lastCourse?.id || 0) + 1;
+
+    const course = await Course.create({
+      id: nextId,
+      title,
+      instructor,
+      price: Number(price),
+      duration,
+      level,
+      image: image || `https://picsum.photos/300/200?${nextId}`,
+    });
+
+    res.status(201).json({ message: "Course created successfully", course });
+  } catch (error) {
+    console.error("Create course error:", error);
+    res.status(500).json({ message: error.message || "Server Error" });
+  }
+};
+
+// @desc    Delete a course
+// @route   DELETE /api/courses/:courseId
+// @access  Private
+const deleteCourse = async (req, res) => {
+  const { courseId } = req.params;
+
+  try {
+    let course = await Course.findById(courseId);
+
+    if (!course && courseId && !Number.isNaN(Number(courseId))) {
+      course = await Course.findOne({ id: Number(courseId) });
+    }
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    await Course.findByIdAndDelete(course._id);
+    await User.updateMany({}, { $pull: { enrolledCourses: course._id } });
+
+    res.json({ message: "Course deleted successfully", course });
+  } catch (error) {
+    console.error("Delete course error:", error);
     res.status(500).json({ message: error.message || "Server Error" });
   }
 };
@@ -41,7 +96,6 @@ const enrollCourse = async (req, res) => {
   const { courseId } = req.params;
 
   try {
-    // Find course by custom numeric id or Mongoose _id
     let course;
     if (courseId.match(/^[0-9a-fA-F]{24}$/)) {
       course = await Course.findById(courseId);
@@ -59,7 +113,6 @@ const enrollCourse = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Check if already enrolled
     const isEnrolled = user.enrolledCourses.some(
       (id) => id.toString() === course._id.toString(),
     );
@@ -103,6 +156,8 @@ const getMyCourses = async (req, res) => {
 
 module.exports = {
   getCourses,
+  createCourse,
+  deleteCourse,
   enrollCourse,
   getMyCourses,
 };
