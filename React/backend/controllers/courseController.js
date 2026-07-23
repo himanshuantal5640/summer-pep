@@ -2,9 +2,6 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const initialCourses = require("../data/courses");
 
-// @desc    Get all courses (seeds database if empty)
-// @route   GET /api/courses
-// @access  Public
 const getCourses = async (req, res) => {
   try {
     let courses = [];
@@ -31,14 +28,13 @@ const getCourses = async (req, res) => {
   }
 };
 
-// @desc    Create a new course
-// @route   POST /api/courses
-// @access  Private
 const createCourse = async (req, res) => {
   const { title, instructor, price, duration, level, image } = req.body;
 
   if (!title || !instructor || !price || !duration || !level) {
-    return res.status(400).json({ message: "Please provide all required course fields" });
+    return res
+      .status(400)
+      .json({ message: "Please provide all required course fields" });
   }
 
   try {
@@ -62,9 +58,7 @@ const createCourse = async (req, res) => {
   }
 };
 
-// @desc    Delete a course
-// @route   DELETE /api/courses/:courseId
-// @access  Private
+
 const deleteCourse = async (req, res) => {
   const { courseId } = req.params;
 
@@ -89,9 +83,6 @@ const deleteCourse = async (req, res) => {
   }
 };
 
-// @desc    Enroll in a course
-// @route   POST /api/courses/enroll/:courseId
-// @access  Private
 const enrollCourse = async (req, res) => {
   const { courseId } = req.params;
 
@@ -136,9 +127,7 @@ const enrollCourse = async (req, res) => {
   }
 };
 
-// @desc    Get enrolled courses for logged-in student
-// @route   GET /api/courses/my-courses
-// @access  Private
+
 const getMyCourses = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate("enrolledCourses");

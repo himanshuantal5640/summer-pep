@@ -5,15 +5,13 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 
-// Load environment variables
+
 dotenv.config();
 
-// Connect to Database
 connectDB();
 
 const app = express();
 
-// Middleware - Allow any dynamic origin (5173, 5174, etc.) during local development
 app.use(
   cors({
     origin: true,
@@ -22,7 +20,6 @@ app.use(
 );
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
 

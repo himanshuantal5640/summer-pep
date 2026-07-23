@@ -101,12 +101,15 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${courseId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `http://localhost:5000/api/courses/${courseId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       const data = await response.json();
 
@@ -123,7 +126,15 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="dashboard" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
+      <div
+        className="dashboard"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}
+      >
         <h2>Loading courses...</h2>
       </div>
     );
@@ -131,7 +142,16 @@ const Dashboard = () => {
 
   if (error) {
     return (
-      <div className="dashboard" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh", color: "#ff4d4d" }}>
+      <div
+        className="dashboard"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+          color: "#ff4d4d",
+        }}
+      >
         <h2>Error: {error}</h2>
       </div>
     );
@@ -145,12 +165,37 @@ const Dashboard = () => {
         <form className="add-course-form" onSubmit={handleAddCourse}>
           <h2>Add a New Course</h2>
           <div className="form-row">
-            <input name="title" value={formData.title} onChange={handleChange} placeholder="Course title" required />
-            <input name="instructor" value={formData.instructor} onChange={handleChange} placeholder="Instructor" required />
+            <input
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Course title"
+              required
+            />
+            <input
+              name="instructor"
+              value={formData.instructor}
+              onChange={handleChange}
+              placeholder="Instructor"
+              required
+            />
           </div>
           <div className="form-row">
-            <input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" required />
-            <input name="duration" value={formData.duration} onChange={handleChange} placeholder="Duration" required />
+            <input
+              name="price"
+              type="number"
+              value={formData.price}
+              onChange={handleChange}
+              placeholder="Price"
+              required
+            />
+            <input
+              name="duration"
+              value={formData.duration}
+              onChange={handleChange}
+              placeholder="Duration"
+              required
+            />
           </div>
           <div className="form-row">
             <select name="level" value={formData.level} onChange={handleChange}>
@@ -158,9 +203,16 @@ const Dashboard = () => {
               <option value="Intermediate">Intermediate</option>
               <option value="Advanced">Advanced</option>
             </select>
-            <input name="image" value={formData.image} onChange={handleChange} placeholder="Image URL (optional)" />
+            <input
+              name="image"
+              value={formData.image}
+              onChange={handleChange}
+              placeholder="Image URL (optional)"
+            />
           </div>
-          <button type="submit" disabled={adding}>{adding ? "Adding..." : "Add Course"}</button>
+          <button type="submit" disabled={adding}>
+            {adding ? "Adding..." : "Add Course"}
+          </button>
         </form>
       )}
 
